@@ -11,6 +11,7 @@
 <script>
 import service from "@/mixins/service.js";
 import Generic from "./Generic.vue";
+import https from 'https';
 
 export default {
   name: "Ping",
@@ -39,7 +40,16 @@ export default {
         return;
       }
 
-      this.fetch("/", { method, cache: "no-cache" }, false)
+      const options = {
+        pfx: process.env.CLIENT_CERT_PFX,
+        passphrase: process.env.CLIENT_CERT_PFX_PASS,
+      };
+
+      console.log(options);
+
+      const sslConfiguredAgent = new https.Agent(options);
+
+      this.fetch("/", { method, cache: "no-cache", agent: sslConfiguredAgent }, false)
         .then(() => {
           this.status = "online";
         })

@@ -17,6 +17,8 @@ ENV UID 1000
 ENV PORT 8080
 ENV SUBFOLDER "/_"
 ENV INIT_ASSETS 1
+ENV CLIENT_CERT_PFX ""
+ENV CLIENT_CERT_PFX_PASS ""
 
 RUN addgroup -S lighttpd -g ${GID} && adduser -D -S -u ${UID} lighttpd lighttpd && \
     apk add -U --no-cache lighttpd
